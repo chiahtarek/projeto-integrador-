@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${titulo}</title>
+</head>
+<body>
+
+    <#if erro??>
+        <h1 style="color: red;">${erro}</h1>
+    </#if>
+
+    <h2>Portes cadastrados ${totalPortes!0}</h2>
+
+    <#if portes?has_content>
+
+        <ul>
+            <#list portes as porte> 
+                <li>${porte.codigo} - ${porte.descricao}</li>
+            </#list>
+        </ul>
+    <#else>
+        <p>Nenhum porte cadastrado.</p>
+    </#if>
+
+</body>
+</html>
