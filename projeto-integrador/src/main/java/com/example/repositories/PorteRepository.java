@@ -17,11 +17,28 @@ public class PorteRepository {
         Porte porte = new Porte(descricao);
         return dao.salvar(porte);
     }
-    public Resultado<List<Porte>> listar(){
+
+    public Resultado<List<Porte>> listar() {
         return dao.listar();
     }
-    public Resultado<Porte> excluir(Porte porte){
-        return dao.excluir(porte); 
+
+    public Resultado<Porte> excluir(String descricao) {
+        Porte porte = new Porte(descricao);
+        return dao.excluir(porte);
+    }
+
+    public Resultado<Porte> editar(Porte porte) {
+        Resultado<List<Porte>> res = dao.listar();
+        if (res.foiSucesso()) {
+            List<Porte> portes = res.comoSucesso().getObj();
+            for (Porte p : portes) {
+                if (p.getCodigo() == porte.getCodigo()) {
+                    return dao.editar(porte);
+                }
+            }
+        }
+        return null;
+
     }
 
 }

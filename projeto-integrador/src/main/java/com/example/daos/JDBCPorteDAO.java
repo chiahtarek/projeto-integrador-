@@ -13,85 +13,94 @@ import com.example.models.FabricaConexoes;
 import com.example.models.Porte;
 import com.example.utils.Resultado;
 
-public class JDBCPorteDAO implements PorteDAO{
+public class JDBCPorteDAO implements PorteDAO {
 
-    private FabricaConexoes fabrica; 
+    private FabricaConexoes fabrica;
 
-    public JDBCPorteDAO(FabricaConexoes fabrica){
-        this.fabrica = fabrica; 
+    public JDBCPorteDAO(FabricaConexoes fabrica) {
+        this.fabrica = fabrica;
     }
 
     @Override
     public Resultado<Porte> salvar(Porte porte) {
-        Connection con = null; 
-        try {
-            con = fabrica.getConnection();
-
-            String sql = "INSERT into projeto_porte (descricao) VALUES (?)"; 
-            PreparedStatement pstm = con.prepareStatement(sql); 
+        String sql = "INSERT into projeto_porte (descricao) VALUES (?)";
+        try (Connection con = fabrica.getConnection();
+                PreparedStatement pstm = con.prepareStatement(sql);) {
 
             pstm.setString(1, porte.getDescricao());
 
-            int rows = pstm.executeUpdate(); 
-            if(rows == 1){
-                return Resultado.sucesso("Porte cadastrado", porte); 
-            }
-            else{
-                return Resultado.erro("Erro ao cadastrar"); 
+            int rows = pstm.executeUpdate();
+            if (rows == 1) {
+                return Resultado.sucesso("Porte cadastrado", porte);
+            } else {
+                return Resultado.erro("Erro ao cadastrar");
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            return Resultado.erro(e.getMessage());  
+            return Resultado.erro(e.getMessage());
         }
-      
+
     }
 
     @Override
     public Resultado<List<Porte>> listar() {
-        List<Porte> lista = new ArrayList<>(); 
-        Connection con; 
+        List<Porte> lista = new ArrayList<>();
+        String sql = "SELECT * FROM projeto_porte";
 
-        try {
-            con = fabrica.getConnection();
-            String sql = "SELECT * FROM projeto_porte"; 
-            PreparedStatement pstm = con.prepareStatement(sql); 
+        try (Connection con = fabrica.getConnection();
+                PreparedStatement pstm = con.prepareStatement(sql);
+                ResultSet result = pstm.executeQuery();) {
 
-            ResultSet result = pstm.executeQuery();
+            while (result.next()) {
+                int codigo = result.getInt("codigo");
+                String descricao = result.getString("descricao");
 
-            while(result.next()){
-                int codigo = result.getInt("codigo"); 
-                String descricao = result.getString("descricao"); 
-
-                Porte porte = new Porte(codigo, descricao); 
-                lista.add(porte); 
+                Porte porte = new Porte(codigo, descricao);
+                lista.add(porte);
             }
-            return Resultado.sucesso("Lista", Collections.unmodifiableList(lista)); 
+            return Resultado.sucesso("Lista", Collections.unmodifiableList(lista));
 
         } catch (SQLException e) {
-           return Resultado.erro(e.getMessage()); 
+            return Resultado.erro(e.getMessage());
         }
     }
+
     @Override
-    public Resultado<Porte> excluir(Porte porte){
-        Connection con; 
-        try{
-            con = fabrica.getConnection(); 
-            String sql = "DELETE FROM projeto_porte where codigo = ?";
-            PreparedStatement pstm = con.prepareStatement(sql); 
-            pstm.setInt(1, porte.getCodigo());
-            int rows = pstm.executeUpdate(); 
-            if(rows == 1){
-                return Resultado.sucesso("Porte excluido", porte); 
-            }
-            else{
-                return Resultado.erro("Erro ao cadastrar"); 
+    public Resultado<Porte> excluir(Porte porte) {
+        String sql = "DELETE FROM projeto_porte where descricao = ?";
+        try (Connection con = fabrica.getConnection();
+                PreparedStatement pstm = con.prepareStatement(sql);) {
+
+            pstm.setString(1, porte.getDescricao());
+            int rows = pstm.executeUpdate();
+            if (rows == 1) {
+                return Resultado.sucesso("Porte excluido", porte);
+            } else {
+                return Resultado.erro("Erro ao excluir");
             }
 
-        }
-        catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
-            return Resultado.erro(e.getMessage()); 
+            return Resultado.erro(e.getMessage());
         }
     }
-    
+
+    public Resultado<Porte> editar(Porte porte) {
+        String sql = "UPDATE projeto_porte set descricao = ? where codigo = ?";
+        try (Connection con = fabrica.getConnection();
+                PreparedStatement pstm = con.prepareStatement(sql)) {
+            pstm.setString(1, porte.getDescricao());
+            pstm.setInt(2, porte.getCodigo());
+            int rows = pstm.executeUpdate();
+            if (rows == 1) {
+                return Resultado.sucesso("Porte editado", porte);
+            } else {
+                return Resultado.erro("Erro ao editar!");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return Resultado.erro(e.getMessage());
+        }
+    }
+
 }

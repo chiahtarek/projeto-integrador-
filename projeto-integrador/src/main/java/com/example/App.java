@@ -1,6 +1,8 @@
 package com.example;
 
 import com.example.controllers.CadastraPorte;
+import com.example.controllers.EditaPorteController;
+import com.example.controllers.ExcluiPorteController;
 import com.example.controllers.IndexController;
 import com.example.controllers.ListaPorteController;
 import com.example.daos.JDBCPorteDAO;
@@ -23,12 +25,19 @@ public class App {
     PorteRepository repositorioPorte = new PorteRepository(porteDAO);
     CadastraPorte porteController = new CadastraPorte(repositorioPorte);
     ListaPorteController listaPorteController = new ListaPorteController(repositorioPorte);
+    ExcluiPorteController excluiPorteController = new ExcluiPorteController(repositorioPorte); 
+    EditaPorteController editaPorteController = new EditaPorteController(repositorioPorte); 
+
     IndexController indexController = new IndexController(); 
 
     //app.get("/", ctx -> ctx.result("Hello Javalin!"));
     app.get("/addporte", porteController.get);
     app.post("/addporte", porteController.post);
     app.get("/listporte", listaPorteController.get); 
+    app.get("/excluiporte", excluiPorteController.get); 
+    app.post("/excluiporte",excluiPorteController.post); 
+    app.get("/editaporte", editaPorteController.get);
+    app.post("/editaporte", editaPorteController.post);
     app.get("/", indexController.get); 
 
   }

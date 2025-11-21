@@ -10,4 +10,5 @@ public interface PorteDAO {
     public Resultado<Porte> salvar(Porte porte); 
     public Resultado<List<Porte>> listar(); 
     public Resultado<Porte> excluir(Porte porte);
+    public Resultado<Porte> editar(Porte porte); 
 }
