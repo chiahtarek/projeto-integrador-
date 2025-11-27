@@ -11,6 +11,11 @@ public class Pessoa {
         this.telefone = telefone;
     }
 
+    public Pessoa(String nome, String telefone) {
+        this.nome = nome;
+        this.telefone = telefone;
+    }
+
     public int getId() {
         return id;
     }

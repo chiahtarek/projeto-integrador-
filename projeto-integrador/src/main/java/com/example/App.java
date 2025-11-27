@@ -1,13 +1,17 @@
 package com.example;
 
+import com.example.controllers.CadastraPessoa;
 import com.example.controllers.CadastraPorte;
 import com.example.controllers.EditaPorteController;
 import com.example.controllers.ExcluiPorteController;
 import com.example.controllers.IndexController;
 import com.example.controllers.ListaPorteController;
+import com.example.daos.JDBCPessoaDAO;
 import com.example.daos.JDBCPorteDAO;
+import com.example.daos.PessoaDAO;
 import com.example.daos.PorteDAO;
 import com.example.models.FabricaConexoes;
+import com.example.repositories.PessoaRepository;
 import com.example.repositories.PorteRepository;
 import com.example.utils.JavalinUtils;
 
@@ -22,11 +26,14 @@ public class App {
     var app = JavalinUtils.makeApp(7000);
     
     PorteDAO porteDAO = new JDBCPorteDAO(FabricaConexoes.getInstance());
+    PessoaDAO pessoaDAO = new JDBCPessoaDAO(FabricaConexoes.getInstance()); 
     PorteRepository repositorioPorte = new PorteRepository(porteDAO);
+    PessoaRepository repositorioPessoa = new PessoaRepository(pessoaDAO);
     CadastraPorte porteController = new CadastraPorte(repositorioPorte);
     ListaPorteController listaPorteController = new ListaPorteController(repositorioPorte);
     ExcluiPorteController excluiPorteController = new ExcluiPorteController(repositorioPorte); 
     EditaPorteController editaPorteController = new EditaPorteController(repositorioPorte); 
+    CadastraPessoa cadastraPessoaController = new CadastraPessoa(repositorioPessoa); 
 
     IndexController indexController = new IndexController(); 
 
@@ -38,6 +45,8 @@ public class App {
     app.post("/excluiporte",excluiPorteController.post); 
     app.get("/editaporte", editaPorteController.get);
     app.post("/editaporte", editaPorteController.post);
+    app.get("/addpessoa", cadastraPessoaController.get); 
+    app.post("/addpessoa", cadastraPessoaController.post); 
     app.get("/", indexController.get); 
 
   }
