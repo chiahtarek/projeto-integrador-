@@ -7,5 +7,8 @@ import com.example.utils.Resultado;
 
 public interface PessoaDAO {
         Resultado<Pessoa> criar(Pessoa pessoa);
-        Resultado<List<Pessoa>> listar(); 
+
+        Resultado<List<Pessoa>> listar();
+
+        Resultado<Pessoa> buscarPorId(int id);
 }

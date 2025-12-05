@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${titulo}</title>
+</head>
+<body>
+
+    <#if erro??>
+        <h1 style="color: red;">${erro}</h1>
+    </#if>
+
+    <h2>Clientes cadastrados ${totalClientes!0}</h2>
+
+    <#if clientes?has_content>
+
+        <ul>
+            <#list clientes as cliente> 
+                <li>${cliente.cpf} - ${cliente.email} - ${cliente.id}</li>
+            </#list>
+        </ul>
+    <#else>
+        <p>Nenhum cliente cadastrado.</p>
+    </#if>
+
+</body>
+</html>

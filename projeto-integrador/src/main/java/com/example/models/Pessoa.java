@@ -15,6 +15,9 @@ public class Pessoa {
         this.nome = nome;
         this.telefone = telefone;
     }
+    public Pessoa(){
+        
+    }
 
     public int getId() {
         return id;
