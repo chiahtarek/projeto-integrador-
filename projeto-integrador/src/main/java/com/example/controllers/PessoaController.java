@@ -10,18 +10,18 @@ import com.example.utils.Resultado;
 import io.javalin.http.Context;
 import io.javalin.http.Handler;
 
-public class CadastraPessoa {
+public class PessoaController {
 
     private PessoaRepository repository;
 
-    public CadastraPessoa(PessoaRepository repository) {
+    public PessoaController(PessoaRepository repository) {
         this.repository = repository;
     }
 
-    public Handler get = (Context ctx) -> {
+    public Handler cadastrarGet = (Context ctx) -> {
         ctx.render("addpessoa.html");
     };
-    public Handler post = (Context ctx)->{
+    public Handler cadastrarPost = (Context ctx)->{
         String nome = ctx.formParam("nome"); 
         String telefone = ctx.formParam("telefone"); 
 
@@ -36,4 +36,5 @@ public class CadastraPessoa {
         }
         ctx.render("addpessoa.html",dados); 
     };
+    
 }

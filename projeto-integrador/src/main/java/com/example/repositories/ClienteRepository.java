@@ -23,7 +23,7 @@ public class ClienteRepository {
             return Resultado.erro("Pessoa com id " + id + "nao encontrado");
         }
         Pessoa pessoa = rPessoa.comoSucesso().getObj();
-        Cliente cliente = new Cliente(pessoa.getId(), pessoa.getNome(), pessoa.getTelefone(), cpf, email);
+        Cliente cliente = new Cliente(pessoa.getId(), cpf, email);
         return clienteDAO.cadastrar(cliente);
     }
 
@@ -47,7 +47,7 @@ public class ClienteRepository {
 
     }
     // public Resultado<Cliente> editar (Cliente cliente){
-        
+
     // }
 
 }

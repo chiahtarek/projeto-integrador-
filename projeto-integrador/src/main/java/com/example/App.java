@@ -1,8 +1,8 @@
 package com.example;
 
-import com.example.controllers.CadastraClienteController;
-import com.example.controllers.CadastraPessoa;
-import com.example.controllers.CadastraPorte;
+import com.example.controllers.ClienteController;
+import com.example.controllers.PessoaController;
+import com.example.controllers.PorteController;
 import com.example.controllers.EditaPorteController;
 import com.example.controllers.ExcluiClienteController;
 import com.example.controllers.ExcluiPorteController;
@@ -30,42 +30,34 @@ import io.javalin.Javalin;
 public class App {
   public static void main(String[] args) {
     var app = JavalinUtils.makeApp(7000);
-    
+
     PorteDAO porteDAO = new JDBCPorteDAO(FabricaConexoes.getInstance());
-    PessoaDAO pessoaDAO = new JDBCPessoaDAO(FabricaConexoes.getInstance()); 
-    ClienteDAO clienteDAO = new JDBCClienteDAO(FabricaConexoes.getInstance()); 
-    ClienteRepository repositorioCliente = new ClienteRepository(clienteDAO, pessoaDAO); 
-    CadastraClienteController cadastraClienteController = new CadastraClienteController(repositorioCliente); 
+    PessoaDAO pessoaDAO = new JDBCPessoaDAO(FabricaConexoes.getInstance());
+    ClienteDAO clienteDAO = new JDBCClienteDAO(FabricaConexoes.getInstance());
+    ClienteRepository repositorioCliente = new ClienteRepository(clienteDAO, pessoaDAO);
+    ClienteController clienteController = new ClienteController(repositorioCliente);
     PorteRepository repositorioPorte = new PorteRepository(porteDAO);
     PessoaRepository repositorioPessoa = new PessoaRepository(pessoaDAO);
-    CadastraPorte porteController = new CadastraPorte(repositorioPorte);
-    ListaPorteController listaPorteController = new ListaPorteController(repositorioPorte);
-    ExcluiPorteController excluiPorteController = new ExcluiPorteController(repositorioPorte); 
-    EditaPorteController editaPorteController = new EditaPorteController(repositorioPorte); 
-    CadastraPessoa cadastraPessoaController = new CadastraPessoa(repositorioPessoa); 
-    ListaClienteController listaClienteController = new ListaClienteController(repositorioCliente); 
-    ExcluiClienteController excluiClienteController = new ExcluiClienteController(repositorioCliente); 
-    
+    PorteController porteController = new PorteController(repositorioPorte);
+    PessoaController pessoaController = new PessoaController(repositorioPessoa);
+    IndexController indexController = new IndexController();
 
-    IndexController indexController = new IndexController(); 
-
-    //app.get("/", ctx -> ctx.result("Hello Javalin!"));
-    app.get("/addporte", porteController.get);
-    app.post("/addporte", porteController.post);
-    app.get("/listporte", listaPorteController.get); 
-    app.get("/excluiporte", excluiPorteController.get); 
-    app.post("/excluiporte",excluiPorteController.post); 
-    app.get("/editaporte", editaPorteController.get);
-    app.post("/editaporte", editaPorteController.post);
-    app.get("/addpessoa", cadastraPessoaController.get); 
-    app.post("/addpessoa", cadastraPessoaController.post); 
-    app.get("/addcliente", cadastraClienteController.get); 
-    app.post("/addcliente", cadastraClienteController.post); 
-    app.get("/listcliente", listaClienteController.get); 
-    app.get("/excluicliente", excluiClienteController.get);
-    app.post("/excluicliente", excluiClienteController.post); 
-    app.get("/", indexController.get); 
     
+    app.get("/addporte", porteController.cadastrarGet);
+    app.post("/addporte", porteController.cadastrarPost);
+    app.get("/listporte", porteController.listar);
+    app.get("/excluiporte", porteController.excluirGet);
+    app.post("/excluiporte", porteController.excluirPost);
+    app.get("/editaporte", porteController.editarGet);
+    app.post("/editaporte", porteController.editarPost);
+    app.get("/addpessoa", pessoaController.cadastrarGet);
+    app.post("/addpessoa", pessoaController.cadastrarPost);
+    app.get("/addcliente", clienteController.cadastrarGet);
+    app.post("/addcliente", clienteController.cadastrarPost);
+    app.get("/listcliente", clienteController.listarGet);
+    app.get("/excluicliente", clienteController.excluirGet);
+    app.post("/excluicliente", clienteController.excluirPost);
+    app.get("/", indexController.get);
 
   }
 
