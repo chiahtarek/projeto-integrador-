@@ -46,8 +46,19 @@ public class ClienteRepository {
         return result.comoErro();
 
     }
-    // public Resultado<Cliente> editar (Cliente cliente){
 
-    // }
+    public Resultado<Cliente> editar(Cliente cliente) {
+        Resultado<List<Cliente>> res = clienteDAO.listar();
+        if (res.foiSucesso()) {
+            List<Cliente> clientes = res.comoSucesso().getObj();
+            for (Cliente c : clientes) {
+                if (c.getId() == cliente.getId()) {
+                    return clienteDAO.editar(cliente);
+                }
+
+            }
+        }
+        return Resultado.erro("Erro ao editar!");
+    }
 
 }

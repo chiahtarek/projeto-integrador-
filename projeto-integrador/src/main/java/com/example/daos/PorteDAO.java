@@ -11,4 +11,5 @@ public interface PorteDAO {
     public Resultado<List<Porte>> listar(); 
     public Resultado<Porte> excluir(Porte porte);
     public Resultado<Porte> editar(Porte porte); 
+    public Resultado<Porte> buscarPorId(int id); 
 }

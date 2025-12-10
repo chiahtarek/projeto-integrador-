@@ -65,18 +65,35 @@ public class ClienteController {
         ctx.render("excluicliente.html", dados);
     };
     public Handler listarGet = (Context ctx) -> {
-        Resultado<List<Cliente>> resultado = repository.listar(); 
+        Resultado<List<Cliente>> resultado = repository.listar();
         Map<String, Object> dados = new HashMap<>();
 
-        if(resultado.foiSucesso()){
-            dados.put("clientes", resultado.comoSucesso().getObj()); 
-            dados.put("totalClientes ", resultado.comoSucesso().getObj().size()); 
+        if (resultado.foiSucesso()) {
+            dados.put("clientes", resultado.comoSucesso().getObj());
+            dados.put("totalClientes ", resultado.comoSucesso().getObj().size());
+        } else {
+            dados.put("erro ", resultado.getMsg());
         }
-        else{
-            dados.put("erro ", resultado.getMsg()); 
+        dados.put("titulo", "lista de clientes");
+        ctx.render("listcliente.html", dados);
+    };
+    public Handler editarGet = (Context ctx) -> {
+        ctx.render("editacliente.html");
+    };
+    public Handler editarPost = (Context ctx) -> {
+        Map<String, Object> dados = new HashMap<>();
+        String swapid = ctx.formParam("id");
+        int id = Integer.parseInt(swapid);
+        String cpf = ctx.formParam("cpf");
+        String email = ctx.formParam("email");
+        Cliente cliente = new Cliente(id, cpf, email);
+        Resultado<Cliente> resultado = repository.editar(cliente);
+        if (resultado.foiSucesso()) {
+            dados.put("mensagem", resultado.getMsg());
+        } else {
+            dados.put("erro", resultado.getMsg());
         }
-        dados.put("titulo", "lista de clientes"); 
-        ctx.render("listcliente.html",dados); 
-    }; 
+        ctx.render("editacliente.html");
+    };
 
 }

@@ -11,13 +11,13 @@
         <h1 style="color: red;">${erro}</h1>
     </#if>
 
-    <h2>Clientes cadastrados ${totalClientes!0}</h2>
+    <h2>Clientes cadastrados ${totalClientes!}</h2>
 
     <#if clientes?has_content>
 
         <ul>
             <#list clientes as cliente> 
-                <li>${cliente.cpf} - ${cliente.email} - ${cliente.id}</li>
+                <li>  ${cliente.cpf} - ${cliente.email} - ${cliente.id} </li>
             </#list>
         </ul>
     <#else>

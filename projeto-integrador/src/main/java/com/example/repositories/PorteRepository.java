@@ -37,7 +37,7 @@ public class PorteRepository {
                 }
             }
         }
-        return null;
+        return Resultado.erro("Erro ao editar!");
 
     }
 

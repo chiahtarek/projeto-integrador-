@@ -9,5 +9,7 @@ public interface ClienteDAO {
     Resultado<Cliente> cadastrar(Cliente cliente); 
     Resultado<List<Cliente>> listar(); 
     Resultado<Cliente> excluir(Cliente cliente); 
+    Resultado<Cliente> editar(Cliente cliente); 
+    Resultado<Cliente> buscarPorId(int id); 
     
 }
