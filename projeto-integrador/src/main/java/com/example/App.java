@@ -63,6 +63,11 @@ public class App {
     app.post("/editacliente", clienteController.editarPost); 
     app.get("/addcarro", carroController.cadastraGet); 
     app.post("/addcarro", carroController.cadastraPost); 
+    app.get("/listcarro", carroController.listarGet); 
+    app.get("/editcarro", carroController.editarGet); 
+    app.post("/editcarro", carroController.editarPost); 
+    app.get("/excluicarro", carroController.excluirGet); 
+    app.post("/excluicarro", carroController.excluirPost); 
     app.get("/", indexController.get);
 
   }

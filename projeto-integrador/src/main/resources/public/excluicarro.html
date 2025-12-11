@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastrar Porte</title>
+    <title>Excluir Carro</title>
 
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #28a745, #218838);
+            background: linear-gradient(135deg, #007bff, #6610f2);
             margin: 0;
             padding: 0;
             display: flex;
@@ -19,62 +19,83 @@
 
         .card {
             background: #fff;
-            width: 450px;
-            padding: 25px;
+            width: 420px;
+            padding: 30px;
             border-radius: 12px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.25);
-            animation: fadeIn 0.4s ease-in-out;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+            animation: fadeIn 0.5s ease-in-out;
         }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
+            to   { opacity: 1; transform: translateY(0); }
         }
 
         h2 {
-            text-align: center;
             margin-top: 0;
+            text-align: center;
             color: #333;
+            margin-bottom: 25px;
+            font-size: 24px;
+        }
+
+        .mensagem {
+            background: #ffeeba;
+            border-left: 6px solid #ffca28;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            text-align: center;
+            color: #856404;
+            font-weight: bold;
         }
 
         form {
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            margin-top: 20px;
         }
 
         label {
+            margin-top: 12px;
             font-weight: bold;
-            color: #555;
+            color: #444;
         }
 
         input[type="text"] {
             padding: 10px;
-            border: 1px solid #ccc;
+            margin-top: 6px;
+            border: 1px solid #bbb;
             border-radius: 6px;
-            font-size: 16px;
-        }
-
-        input[type="submit"] {
-            padding: 12px;
-            background: #28a745;
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
+            font-size: 14px;
+            outline: none;
             transition: 0.2s;
         }
 
+        input[type="text"]:focus {
+            border-color: #dc3545;
+            box-shadow: 0 0 6px #dc354580;
+        }
+
+        input[type="submit"] {
+            margin-top: 20px;
+            padding: 12px;
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.25s;
+        }
+
         input[type="submit"]:hover {
-            background: #218838;
+            background: #b71c1c;
         }
 
         .back-link {
             display: block;
             text-align: center;
-            margin-top: 20px;
+            margin-top: 15px;
             text-decoration: none;
             color: #fff;
             background: #333;
@@ -91,12 +112,19 @@
 <body>
 
 <div class="card">
-    <h2>Cadastrar Porte</h2>
+    <h2>Excluir Carro</h2>
+
+    <#if mensagem?? >
+        <div class="mensagem">${mensagem}</div>
+    </#if>
+
     <form method="post">
-        <label for="descricao">Digite a descrição</label>
-        <input type="text" name="descricao" required/>
-        <input type="submit" value="Cadastrar"/>
+        <label for="placa">Digite a placa</label>
+        <input type="text" name="placa"/>
+
+        <input type="submit" value="Excluir"/>
     </form>
+
     <a href="/" class="back-link">Voltar</a>
 </div>
 

@@ -1,20 +1,129 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Excluir Cliente</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #007bff, #6610f2);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .card {
+            background: #fff;
+            width: 420px;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.25);
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            text-align: center;
+            margin: 0 0 25px 0;
+            color: #333;
+            font-size: 24px;
+        }
+
+        .mensagem {
+            text-align: center;
+            font-weight: bold;
+            color: red;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-top: 12px;
+            font-weight: bold;
+            color: #444;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            margin-top: 6px;
+            border: 1px solid #bbb;
+            border-radius: 6px;
+            font-size: 14px;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        input[type="text"]:focus {
+            border-color: #dc3545;
+            box-shadow: 0 0 6px #dc354580;
+        }
+
+        input[type="submit"] {
+            margin-top: 20px;
+            padding: 12px;
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.25s;
+        }
+
+        input[type="submit"]:hover {
+            background: #b52a37;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            text-decoration: none;
+            color: #fff;
+            background: #333;
+            padding: 10px;
+            border-radius: 6px;
+            transition: 0.2s;
+        }
+
+        .back-link:hover {
+            background: #000;
+        }
+    </style>
 </head>
 <body>
+
+<div class="card">
+
     <h2>Excluir Cliente</h2>
+
     <#if mensagem?? >
-        <h2>${mensagem}</h2>
+        <div class="mensagem">${mensagem}</div>
     </#if>
+
     <form method="post">
-        <label for="id">Digite o id</label>
+        <label for="id">Digite o ID</label>
         <input type="text" name="id"/>
-        <input type="submit"/>
+
+        <input type="submit" value="Excluir"/>
     </form>
-    <a href="/">Voltar</a>
+
+    <a href="/" class="back-link">Voltar</a>
+
+</div>
+
 </body>
-</html> 
+</html>

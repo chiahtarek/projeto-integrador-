@@ -14,18 +14,16 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
         }
 
         .card {
             background: #fff;
-            width: 650px;
-            padding: 25px;
+            width: 900px;
+            padding: 30px;
             border-radius: 12px;
             box-shadow: 0 0 20px rgba(0,0,0,0.25);
             animation: fadeIn 0.4s ease-in-out;
-            max-height: 85vh;
-            overflow-y: auto;
         }
 
         @keyframes fadeIn {
@@ -36,14 +34,20 @@
         h2 {
             text-align: center;
             margin-top: 0;
+            margin-bottom: 25px;
             color: #333;
+            font-size: 26px;
         }
 
         .erro {
+            background: #ffcccc;
+            border-left: 6px solid #d8000c;
+            color: #a70000;
+            padding: 12px;
             text-align: center;
-            color: red;
+            border-radius: 6px;
+            margin-bottom: 20px;
             font-weight: bold;
-            margin-bottom: 10px;
         }
 
         table {
@@ -52,38 +56,43 @@
             margin-top: 15px;
         }
 
-        table thead {
-            background: #007bff;
-            color: white;
-        }
-
-        table th, table td {
+        th, td {
             padding: 12px;
-            border-bottom: 1px solid #ddd;
             text-align: left;
         }
 
-        table tr:hover {
-            background: #f1f1f1;
+        th {
+            background: #007bff;
+            color: #fff;
+            font-size: 15px;
         }
 
-        .no-data {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 18px;
+        tr:nth-child(even) {
+            background: #f2f2f2;
+        }
+
+        tr:hover {
+            background: #e9e9e9;
+        }
+
+        td {
+            font-size: 14px;
             color: #444;
         }
 
         .back-link {
             display: block;
             text-align: center;
-            margin-top: 20px;
+            margin-top: 25px;
             text-decoration: none;
             color: #fff;
             background: #333;
-            padding: 10px;
+            padding: 12px;
             border-radius: 6px;
             transition: 0.2s;
+            width: 200px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .back-link:hover {
@@ -99,28 +108,39 @@
         <div class="erro">${erro}</div>
     </#if>
 
-    <h2>Portes cadastrados (${totalPortes!0})</h2>
+    <h2>Carros cadastrados (${totalCarros!0})</h2>
 
-    <#if portes?has_content>
+    <#if carros?has_content>
+
         <table>
             <thead>
                 <tr>
-                    <th>Código</th>
-                    <th>Descrição</th>
+                    <th>Placa</th>
+                    <th>Modelo</th>
+                    <th>Marca</th>
+                    <th>Cor</th>
+                    <th>ID Cliente</th>
+                    <th>ID Porte</th>
                 </tr>
             </thead>
-
             <tbody>
-                <#list portes as porte>
+                <#list carros as carro>
                     <tr>
-                        <td>${porte.codigo}</td>
-                        <td>${porte.descricao}</td>
+                        <td>${carro.placa}</td>
+                        <td>${carro.modelo}</td>
+                        <td>${carro.marca}</td>
+                        <td>${carro.cor}</td>
+                        <td>${carro.cliente_id}</td>
+                        <td>${carro.porte_id}</td>
                     </tr>
                 </#list>
             </tbody>
         </table>
+
     <#else>
-        <p class="no-data">Nenhum porte cadastrado.</p>
+        <p style="text-align:center; font-weight:bold; color:#555;">
+            Nenhum carro cadastrado.
+        </p>
     </#if>
 
     <a href="/" class="back-link">Voltar</a>

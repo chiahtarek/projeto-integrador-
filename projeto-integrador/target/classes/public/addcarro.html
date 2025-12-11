@@ -1,27 +1,130 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Cadastrar Carro</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #007bff, #6610f2);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .card {
+            background: #fff;
+            width: 420px;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            margin-top: 0;
+            text-align: center;
+            color: #333;
+            margin-bottom: 25px;
+            font-size: 24px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-top: 12px;
+            font-weight: bold;
+            color: #444;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            margin-top: 6px;
+            border: 1px solid #bbb;
+            border-radius: 6px;
+            font-size: 14px;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        input[type="text"]:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 6px #007bff80;
+        }
+
+        input[type="submit"] {
+            margin-top: 20px;
+            padding: 12px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.25s;
+        }
+
+        input[type="submit"]:hover {
+            background: #0056b3;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            text-decoration: none;
+            color: #555;
+            font-size: 15px;
+            transition: 0.2s;
+        }
+
+        .back-link:hover {
+            color: #000;
+        }
+    </style>
 </head>
 <body>
+
+<div class="card">
     <h2>Cadastrar Carro</h2>
+
     <form method="post">
-        <label for="placa">Digite o placa</label>
+        <label for="placa">Digite a placa</label>
         <input type="text" name="placa"/>
+
         <label for="modelo">Digite o modelo</label>
         <input type="text" name="modelo"/>
-        <label for="marca">Digite o marca</label>
+
+        <label for="marca">Digite a marca</label>
         <input type="text" name="marca"/>
-        <label for="cor">Digite o cor</label>
+
+        <label for="cor">Digite a cor</label>
         <input type="text" name="cor"/>
+
         <label for="id_cliente">Digite o id_cliente</label>
         <input type="text" name="id_cliente"/>
+
         <label for="id_porte">Digite o id_porte</label>
         <input type="text" name="id_porte"/>
-        <input type="submit"/>
+
+        <input type="submit" value="Cadastrar"/>
     </form>
-    <a href="/">Voltar</a>
+
+    <a href="/" class="back-link">Voltar</a>
+</div>
+
 </body>
 </html>

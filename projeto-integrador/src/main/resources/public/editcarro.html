@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastrar Cliente</title>
+    <title>Editar Carro</title>
 
     <style>
         body {
@@ -22,21 +22,32 @@
             width: 420px;
             padding: 30px;
             border-radius: 12px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.25);
-            animation: fadeIn 0.4s ease-in-out;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+            animation: fadeIn 0.5s ease-in-out;
         }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
+            to   { opacity: 1; transform: translateY(0); }
         }
 
         h2 {
-            text-align: center;
             margin-top: 0;
-            margin-bottom: 25px;
+            text-align: center;
             color: #333;
+            margin-bottom: 25px;
             font-size: 24px;
+        }
+
+        .mensagem {
+            background: #e2ffe2;
+            border-left: 6px solid #28a745;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            text-align: center;
+            color: #155724;
+            font-weight: bold;
         }
 
         form {
@@ -68,8 +79,8 @@
         input[type="submit"] {
             margin-top: 20px;
             padding: 12px;
-            background: #007bff;
-            color: white;
+            background: #ffc107;
+            color: black;
             border: none;
             border-radius: 6px;
             font-size: 16px;
@@ -78,7 +89,7 @@
         }
 
         input[type="submit"]:hover {
-            background: #0056b3;
+            background: #e0a800;
         }
 
         .back-link {
@@ -101,19 +112,32 @@
 <body>
 
 <div class="card">
-    <h2>Cadastrar Cliente</h2>
+    <h2>Editar Carro</h2>
+
+    <#if mensagem?? >
+        <div class="mensagem">${mensagem}</div>
+    </#if>
 
     <form method="post">
-        <label for="id">Digite o id</label>
-        <input type="text" name="id"/>
+        <label for="placa">Digite a placa</label>
+        <input type="text" name="placa"/>
 
-        <label for="cpf">Digite o cpf</label>
-        <input type="text" name="cpf"/>
+        <label for="modelo">Digite o modelo</label>
+        <input type="text" name="modelo"/>
 
-        <label for="email">Digite o email</label>
-        <input type="text" name="email"/>
+        <label for="marca">Digite a marca</label>
+        <input type="text" name="marca"/>
 
-        <input type="submit" value="Cadastrar"/>
+        <label for="cor">Digite a cor</label>
+        <input type="text" name="cor"/>
+
+        <label for="id_cliente">Digite o id_cliente</label>
+        <input type="text" name="id_cliente"/>
+
+        <label for="id_porte">Digite o id_porte</label>
+        <input type="text" name="id_porte"/>
+
+        <input type="submit" value="Salvar Alterações"/>
     </form>
 
     <a href="/" class="back-link">Voltar</a>

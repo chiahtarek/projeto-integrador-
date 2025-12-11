@@ -1,28 +1,135 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${titulo}</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #007bff, #6610f2);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .card {
+            background: #fff;
+            width: 650px;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.25);
+            animation: fadeIn 0.4s ease-in-out;
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 0;
+            color: #333;
+        }
+
+        .erro {
+            text-align: center;
+            color: red;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        table thead {
+            background: #007bff;
+            color: white;
+        }
+
+        table th, table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        table tr:hover {
+            background: #f1f1f1;
+        }
+
+        .no-data {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+            color: #444;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #fff;
+            background: #333;
+            padding: 10px;
+            border-radius: 6px;
+            transition: 0.2s;
+        }
+
+        .back-link:hover {
+            background: #000;
+        }
+
+    </style>
 </head>
 <body>
 
+<div class="card">
+
     <#if erro??>
-        <h1 style="color: red;">${erro}</h1>
+        <div class="erro">${erro}</div>
     </#if>
 
-    <h2>Clientes cadastrados ${totalClientes!}</h2>
+    <h2>Clientes cadastrados (${totalClientes!})</h2>
 
     <#if clientes?has_content>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>CPF</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
 
-        <ul>
-            <#list clientes as cliente> 
-                <li>  ${cliente.cpf} - ${cliente.email} - ${cliente.id} </li>
-            </#list>
-        </ul>
+            <tbody>
+                <#list clientes as cliente>
+                    <tr>
+                        <td>${cliente.id}</td>
+                        <td>${cliente.cpf}</td>
+                        <td>${cliente.email}</td>
+                    </tr>
+                </#list>
+            </tbody>
+        </table>
+
     <#else>
-        <p>Nenhum cliente cadastrado.</p>
+        <p class="no-data">Nenhum cliente cadastrado.</p>
     </#if>
+
+    <a href="/" class="back-link">Voltar</a>
+
+</div>
 
 </body>
 </html>

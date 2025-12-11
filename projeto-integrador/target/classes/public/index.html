@@ -1,11 +1,123 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Sistema Principal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 900px;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            text-align: center;
+            background: #007BFF;
+            border: none;
+            color: white;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 15px;
+            flex: 1;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: #0056b3;
+        }
+
+        .btn-red {
+            background: #dc3545;
+        }
+
+        .btn-red:hover {
+            background: #a71d2a;
+        }
+
+        .btn-green {
+            background: #28a745;
+        }
+
+        .btn-green:hover {
+            background: #1e7e34;
+        }
+
+        .btn-yellow {
+            background: #ffc107;
+            color: black;
+        }
+
+        .btn-yellow:hover {
+            background: #e0a800;
+        }
+    </style>
 </head>
 <body>
-    <h1>Teste de index</h1>
+
+<div class="container">
+
+    <h1>Menu Principal</h1>
+
+    <!-- CARRO -->
+    <div class="section-title">Carro</div>
+    <div class="button-group">
+        <a class="btn btn-green" href="/addcarro">Criar</a>
+        <a class="btn btn-yellow" href="/editcarro">Editar</a>
+        <a class="btn btn-red" href="/excluicarro">Excluir</a>
+        <a class="btn" href="/listcarro">Listar</a>
+    </div>
+
+    <!-- CLIENTE -->
+    <div class="section-title">Cliente</div>
+    <div class="button-group">
+        <a class="btn btn-green" href="/addcliente">Criar</a>
+        <a class="btn btn-yellow" href="/editacliente">Editar</a>
+        <a class="btn btn-red" href="/excluicliente">Excluir</a>
+        <a class="btn" href="/listcliente">Listar</a>
+    </div>
+
+    <!-- PORTE -->
+    <div class="section-title">Porte</div>
+    <div class="button-group">
+        <a class="btn btn-green" href="/addporte">Criar</a>
+        <a class="btn btn-yellow" href="/editaporte">Editar</a>
+        <a class="btn btn-red" href="/excluiporte">Excluir</a>
+        <a class="btn" href="/listporte">Listar</a>
+    </div>
+
+</div>
+
 </body>
 </html>
