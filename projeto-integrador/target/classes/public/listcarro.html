@@ -127,11 +127,11 @@
                 <#list carros as carro>
                     <tr>
                         <td>${carro.placa}</td>
-                        <td>${carro.modelo}</td>
-                        <td>${carro.marca}</td>
-                        <td>${carro.cor}</td>
-                        <td>${carro.cliente_id}</td>
-                        <td>${carro.porte_id}</td>
+                      <td>${carro.modelo}</td>
+                      <td>${carro.marca}</td>
+                      <td>${carro.cor}</td>
+                     <td>${carro.cliente.id?default("Sem cliente")}</td>
+                    <td>${carro.porte.codigo?default("Sem porte")}</td>
                     </tr>
                 </#list>
             </tbody>

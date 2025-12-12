@@ -11,6 +11,10 @@ public class Cliente extends Pessoa {
         this.email = email;
     }
 
+    public Cliente(int id) {
+        this.id = id;
+    }
+
     public Cliente(String nome, String telefone, String cpf, String email) {
         super(nome, telefone);
         this.cpf = cpf;
@@ -53,6 +57,5 @@ public class Cliente extends Pessoa {
     public void setId(int id) {
         this.id = id;
     }
-
 
 }

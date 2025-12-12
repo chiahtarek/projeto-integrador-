@@ -35,7 +35,7 @@ public class ClienteController {
         } else {
             dados.put("erro", resultado.getMsg());
         }
-        ctx.render("addcliente.html");
+        ctx.render("addcliente.html", dados);
 
     };
 
@@ -91,9 +91,9 @@ public class ClienteController {
         if (resultado.foiSucesso()) {
             dados.put("mensagem", resultado.getMsg());
         } else {
-            dados.put("erro", resultado.getMsg());
+            dados.put("mensagem", resultado.getMsg());
         }
-        ctx.render("editacliente.html");
+        ctx.render("editacliente.html", dados);
     };
 
 }

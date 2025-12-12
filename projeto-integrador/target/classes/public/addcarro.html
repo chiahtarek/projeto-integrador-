@@ -101,6 +101,18 @@
 <div class="card">
     <h2>Cadastrar Carro</h2>
 
+    <#if mensagem??>
+        <p style="color: green; font-weight: bold; text-align:center;">
+            ${mensagem}
+        </p>
+    </#if>
+
+    <#if erro??>
+        <p style="color: red; font-weight: bold; text-align:center;">
+            ${erro}
+        </p>
+    </#if>
+
     <form method="post">
         <label for="placa">Digite a placa</label>
         <input type="text" name="placa"/>

@@ -8,6 +8,10 @@ public class Porte {
         this.descricao = descricao;
     }
 
+    public Porte(int codigo) {
+        this.codigo = codigo;
+    }
+
     public Porte(int codigo, String descricao) {
         this.codigo = codigo;
         this.descricao = descricao;

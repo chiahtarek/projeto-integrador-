@@ -5,16 +5,16 @@ public class Carro {
     private String modelo;
     private String marca;
     private String cor;
-    private int cliente_id;
-    private int porte_id;
+    private Cliente cliente;
+    private Porte porte;
 
-    public Carro(String placa, String modelo, String marca, String cor, int cliente_id, int porte_id) {
+    public Carro(String placa, String modelo, String marca, String cor, Cliente cliente, Porte porte) {
         this.placa = placa;
         this.modelo = modelo;
         this.marca = marca;
         this.cor = cor;
-        this.cliente_id = cliente_id;
-        this.porte_id = porte_id;
+        this.cliente = cliente;
+        this.porte = porte;
     }
 
     public String getPlaca() {
@@ -49,20 +49,22 @@ public class Carro {
         this.cor = cor;
     }
 
-    public int getCliente_id() {
-        return cliente_id;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setCliente_id(int cliente_id) {
-        this.cliente_id = cliente_id;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
-    public int getPorte_id() {
-        return porte_id;
+    public Porte getPorte() {
+        return porte;
     }
 
-    public void setPorte_id(int porte_id) {
-        this.porte_id = porte_id;
+    public void setPorte(Porte porte) {
+        this.porte = porte;
     }
+
+   
 
 }

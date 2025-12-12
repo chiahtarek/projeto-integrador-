@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.example.models.Carro;
+import com.example.models.Cliente;
+import com.example.models.Porte;
 import com.example.repositories.CarroRepository;
 import com.example.utils.Resultado;
 
@@ -29,10 +31,12 @@ public class CarroController {
         String cor = ctx.formParam("cor");
         String swapIdCliente = ctx.formParam("id_cliente");
         int id_cliente = Integer.parseInt(swapIdCliente);
+        Cliente cliente = new Cliente(id_cliente);
         String swapIdPorte = ctx.formParam("id_porte");
         int id_porte = Integer.parseInt(swapIdPorte);
+        Porte porte = new Porte(id_porte, null);
 
-        Resultado<Carro> resultado = repository.cadastrar(placa, modelo, marca, cor, id_cliente, id_porte);
+        Resultado<Carro> resultado = repository.cadastrar(placa, modelo, marca, cor, cliente, porte);
         Map<String, Object> dados = new HashMap<>();
         if (resultado.foiSucesso()) {
             dados.put("mensagem", resultado.getMsg());
@@ -55,20 +59,22 @@ public class CarroController {
         dados.put("titulo", "lista de carros");
         ctx.render("listcarro.html", dados);
     };
-    public Handler editarGet = (Context ctx) ->{
-        ctx.render("editcarro.html"); 
-    }; 
-    public Handler editarPost = (Context ctx) ->{
-          String placa = ctx.formParam("placa");
+    public Handler editarGet = (Context ctx) -> {
+        ctx.render("editcarro.html");
+    };
+    public Handler editarPost = (Context ctx) -> {
+        String placa = ctx.formParam("placa");
         String modelo = ctx.formParam("modelo");
         String marca = ctx.formParam("marca");
         String cor = ctx.formParam("cor");
         String swapIdCliente = ctx.formParam("id_cliente");
         int id_cliente = Integer.parseInt(swapIdCliente);
+        Cliente cliente = new Cliente(id_cliente, null, null);
         String swapIdPorte = ctx.formParam("id_porte");
         int id_porte = Integer.parseInt(swapIdPorte);
+        Porte porte = new Porte(id_porte, null);
 
-        Carro carro = new Carro(placa, modelo, marca,cor, id_cliente, id_porte); 
+        Carro carro = new Carro(placa, modelo, marca, cor, cliente, porte);
 
         Resultado<Carro> resultado = repository.editar(carro);
         Map<String, Object> dados = new HashMap<>();
@@ -78,20 +84,19 @@ public class CarroController {
             dados.put("erro", resultado.getMsg());
         }
         ctx.render("editcarro.html", dados);
-    }; 
-    public Handler excluirGet = (Context ctx) ->{
-        ctx.render("excluicarro.html"); 
     };
-    public Handler excluirPost = (Context ctx) ->{
-        String placa = ctx.formParam("placa"); 
-        Resultado<Carro> result = repository.excluir(placa); 
-        Map<String,Object> dados = new HashMap<>();
-        if(result.foiSucesso()){
+    public Handler excluirGet = (Context ctx) -> {
+        ctx.render("excluicarro.html");
+    };
+    public Handler excluirPost = (Context ctx) -> {
+        String placa = ctx.formParam("placa");
+        Resultado<Carro> result = repository.excluir(placa);
+        Map<String, Object> dados = new HashMap<>();
+        if (result.foiSucesso()) {
             dados.put("mensagem", result.getMsg());
+        } else {
+            dados.put("erro", result.getMsg());
         }
-        else{
-            dados.put("erro", result.getMsg()); 
-        }
-        ctx.render("excluicarro.html", dados); 
+        ctx.render("excluicarro.html", dados);
     };
 }

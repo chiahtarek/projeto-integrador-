@@ -21,10 +21,10 @@ public class CarroRepository {
         this.clienteDAO = clienteDAO;
     }
 
-    public Resultado<Carro> cadastrar(String placa, String modelo, String marca, String cor, int cliente_id,
-            int porte_id) {
+    public Resultado<Carro> cadastrar(String placa, String modelo, String marca, String cor, Cliente cliente_id,
+            Porte porte_id) {
         System.out.println("ID do porte recebido: " + porte_id);
-        Resultado<Porte> rPorte = porteDAO.buscarPorId(porte_id);
+        Resultado<Porte> rPorte = porteDAO.buscarPorId(porte_id.getCodigo());
         if (!rPorte.foiSucesso()) {
             return Resultado.erro("erro ao buscar porte");
         }
@@ -33,13 +33,13 @@ public class CarroRepository {
 
         System.out.println("Porte encontrado: "
                 + (rPorte.foiSucesso() ? rPorte.comoSucesso().getObj().getCodigo() : "não encontrado"));
-        Resultado<Cliente> rCliente = clienteDAO.buscarPorId(cliente_id);
+        Resultado<Cliente> rCliente = clienteDAO.buscarPorId(cliente_id.getId());
         if (!rCliente.foiSucesso()) {
             return Resultado.erro("erro ao buscar cliente");
         }
         Cliente cliente = rCliente.comoSucesso().getObj();
 
-        Carro carro = new Carro(placa, modelo, marca, cor, cliente.getId(), porte.getCodigo());
+        Carro carro = new Carro(placa, modelo, marca, cor, cliente, porte);
         System.out.println("Cliente ID: " + cliente.getId());
         System.out.println("Porte ID: " + porte.getCodigo());
         return carroDAO.cadastrar(carro);
@@ -61,16 +61,17 @@ public class CarroRepository {
         }
         return Resultado.erro("erro ao buscar");
     }
-    public Resultado<Carro> excluir(String placa){
-        Resultado<List<Carro>> resCarro = carroDAO.listar(); 
-        if(resCarro.foiSucesso()){
+
+    public Resultado<Carro> excluir(String placa) {
+        Resultado<List<Carro>> resCarro = carroDAO.listar();
+        if (resCarro.foiSucesso()) {
             List<Carro> carros = resCarro.comoSucesso().getObj();
-            for(Carro c: carros){
-                if(c.getPlaca().equals(placa)){
-                    return carroDAO.excluir(c); 
+            for (Carro c : carros) {
+                if (c.getPlaca().equals(placa)) {
+                    return carroDAO.excluir(c);
                 }
             }
         }
-        return Resultado.erro("erro ao excluir "); 
+        return Resultado.erro("erro ao excluir ");
     }
 }

@@ -38,8 +38,6 @@ public class JDBCClienteDAO implements ClienteDAO {
             int rows = pstm.executeUpdate();
 
             if (rows == 1) {
-                int id = DBUtils.getLastId(pstm);
-                cliente.setId(id);
                 return Resultado.sucesso("Cliente cadastrado", cliente);
             }
             return Resultado.erro("Erro ao cadastrar cliente");
@@ -125,12 +123,12 @@ public class JDBCClienteDAO implements ClienteDAO {
                 Cliente cliente = new Cliente(rs.getInt("pessoa_codigo"),
                         rs.getString("cpf"),
                         rs.getString("email"));
-                 return Resultado.sucesso("cliente encontrado", cliente);    
+                return Resultado.sucesso("cliente encontrado", cliente);
             }
-            return Resultado.erro("erro ao buscar cliente"); 
+            return Resultado.erro("erro ao buscar cliente");
         } catch (SQLException e) {
             e.printStackTrace();
-            return Resultado.erro(e.getMessage()); 
+            return Resultado.erro(e.getMessage());
         }
     }
 

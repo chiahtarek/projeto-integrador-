@@ -45,13 +45,14 @@ public class PorteController {
     public Handler excluirPost = (Context ctx) -> {
         Resultado<Porte> resultado2;
         Map<String, Object> dados = new HashMap<>();
-        String descricao = ctx.formParam("descricao");
+        String swapId = ctx.formParam("id");
+        int id = Integer.parseInt(swapId); 
         Resultado<List<Porte>> resultado = repositorio.listar();
         if (resultado.foiSucesso()) {
             List<Porte> portes = resultado.comoSucesso().getObj();
 
             for (Porte p : portes) {
-                if (p.getDescricao().equals(descricao)) {
+                if (p.getCodigo() == id) {
                     resultado2 = repositorio.excluir(p.getDescricao());
                     if (resultado2.foiSucesso()) {
                         dados.put("mensagem", resultado2.getMsg());

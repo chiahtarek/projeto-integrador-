@@ -103,6 +103,19 @@
 <div class="card">
     <h2>Cadastrar Cliente</h2>
 
+    <#if mensagem??>
+        <p style="color: green; font-weight: bold; text-align:center;">
+            ${mensagem}
+        </p>
+    </#if>
+
+    <#if erro??>
+        <p style="color: red; font-weight: bold; text-align:center;">
+            ${erro}
+        </p>
+    </#if>
+
+
     <form method="post">
         <label for="id">Digite o id</label>
         <input type="text" name="id"/>
