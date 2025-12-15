@@ -24,7 +24,7 @@ public class JDBCCarroDAO implements CarroDAO {
 
     @Override
     public Resultado<Carro> cadastrar(Carro carro) {
-        String sql = "Insert into projeto_veiculo (placa, modelo, marca, cor, cliente_pessoa_codigo, porte_codigo) values (?, ?, ?, ?, ?, ?)";
+        String sql = "Insert into projeto_veiculo (placa, modelo, marca, cor, cliente_id, porte_codigo) values (?, ?, ?, ?, ?, ?)";
         try (Connection con = fabrica.getConnection();
                 PreparedStatement pstm = con.prepareStatement(sql)) {
             pstm.setString(1, carro.getPlaca());
@@ -58,12 +58,8 @@ public class JDBCCarroDAO implements CarroDAO {
                 String modelo = rs.getString("modelo");
                 String marca = rs.getString("marca");
                 String cor = rs.getString("cor");
-                int cliente_id = rs.getInt("cliente_pessoa_codigo");
-                Cliente cliente = new Cliente(cliente_id);
-                int porte_id = rs.getInt("porte_codigo");
-                Porte porte = new Porte(porte_id);
 
-                Carro carro = new Carro(placa, modelo, marca, cor, cliente, porte);
+                Carro carro = new Carro(placa, modelo, marca, cor, null, null);
                 carros.add(carro);
             }
             return Resultado.sucesso("Lista", carros);
@@ -76,7 +72,7 @@ public class JDBCCarroDAO implements CarroDAO {
 
     @Override
     public Resultado<Carro> editar(Carro carro) {
-        String sql = "UPDATE projeto_veiculo set marca = ?, modelo = ?, cor = ?, cliente_pessoa_codigo = ?, porte_codigo = ? where placa = ?";
+        String sql = "UPDATE projeto_veiculo set marca = ?, modelo = ?, cor = ?, cliente_id = ?, porte_codigo = ? where placa = ?";
         try (Connection con = fabrica.getConnection();
                 PreparedStatement pstm = con.prepareStatement(sql)) {
             pstm.setString(1, carro.getModelo());

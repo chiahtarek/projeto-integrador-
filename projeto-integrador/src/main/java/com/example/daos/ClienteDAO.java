@@ -11,5 +11,6 @@ public interface ClienteDAO {
     Resultado<Cliente> excluir(Cliente cliente); 
     Resultado<Cliente> editar(Cliente cliente); 
     Resultado<Cliente> buscarPorId(int id); 
+    Resultado<Cliente> buscarClienteCarro(String placa); 
     
 }

@@ -12,4 +12,5 @@ public interface PorteDAO {
     public Resultado<Porte> excluir(Porte porte);
     public Resultado<Porte> editar(Porte porte); 
     public Resultado<Porte> buscarPorId(int id); 
+    public Resultado<Porte> buscarPorteCarro(String placa); 
 }

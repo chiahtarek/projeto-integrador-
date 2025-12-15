@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,13 +23,20 @@
             width: 420px;
             padding: 30px;
             border-radius: 12px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.25);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
             animation: fadeIn 0.4s ease-in-out;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         h2 {
@@ -105,33 +113,81 @@
         }
     </style>
 </head>
+
 <body>
 
-<div class="card">
+    <div class="card">
 
-    <h2>Editar Cliente</h2>
+        <h2>Editar Cliente</h2>
 
-    <#if mensagem?? >
-        <div class="mensagem">${mensagem}</div>
-    </#if>
+        <#if mensagem??>
+            <div class="mensagem">${mensagem}</div>
+        </#if>
+        <label for="clienteSelect">Selecione um cliente</label>
+        <select id="clienteSelect" onchange="preencherCampos()">
+            <option value="">-- Selecione --</option>
 
-    <form method="post">
+            <#if clientes??>
+                <#list clientes as c>
+                    <option value="${c.id}" data-cpf="${c.cpf}" data-email="${c.email}">
+                        ${c.id} - ${c.cpf}
+                    </option>
+                </#list>
+            </#if>
+        </select>
 
-        <label for="id">Digite o id</label>
-        <input type="text" name="id"/>
+        <form method="post" action="/editacliente">
 
-        <label for="cpf">Digite o cpf</label>
-        <input type="text" name="cpf"/>
+            <input type="hidden" name="id" id="id" />
 
-        <label for="email">Digite o email</label>
-        <input type="text" name="email"/>
+            <label for="cpf">CPF</label>
+            <input type="text" name="cpf" id="cpf" />
 
-        <input type="submit" value="Salvar Alterações"/>
-    </form>
+            <label for="email">Email</label>
+            <input type="text" name="email" id="email" />
 
-    <a href="/" class="back-link">Voltar</a>
+            <input type="submit" id="btnSalvar" value="Salvar Alterações" />
+        </form>
 
-</div>
+        <a href="/" class="back-link">Voltar</a>
 
+    </div>
+
+
+    <script>
+
+        function validar() {
+            if (!document.getElementById("id").value) {
+                alert("Selecione um cliente antes de salvar.");
+                return false;
+            }
+            return true;
+        }
+
+        window.onload = function () {
+            const select = document.getElementById("clienteSelect");
+            if (select.value) {
+                preencherCampos();
+            }
+        }
+        function preencherCampos() {
+            const select = document.getElementById("clienteSelect");
+            const option = select.options[select.selectedIndex];
+
+            if (!option.value) {
+                document.getElementById("id").value = "";
+                document.getElementById("cpf").value = "";
+                document.getElementById("email").value = "";
+                return;
+            }
+
+            document.getElementById("id").value = option.value;
+            document.getElementById("cpf").value = option.dataset.cpf;
+            document.getElementById("email").value = option.dataset.email;
+
+
+        }
+    </script>
 </body>
+
 </html>

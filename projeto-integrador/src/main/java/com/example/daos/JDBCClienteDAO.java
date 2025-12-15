@@ -132,4 +132,28 @@ public class JDBCClienteDAO implements ClienteDAO {
         }
     }
 
+    @Override
+    public Resultado<Cliente> buscarClienteCarro(String placa) {
+        String sql = "SELECT * from projeto_veiculo PV inner join projeto_cliente PC";
+        sql += " ON PV.cliente_id = PC.pessoa_codigo WHERE PV.placa = ?";
+        try (Connection con = fabrica.getConnection();
+             PreparedStatement pstm = con.prepareStatement(sql)) {
+            pstm.setString(1, placa);
+
+            ResultSet rs = pstm.executeQuery(); 
+            while(rs.next()){
+                int id = rs.getInt("pessoa_codigo"); 
+                String cpf = rs.getString("cpf"); 
+                String email = rs.getString("email");
+                Cliente cliente = new Cliente(id, cpf, email); 
+                return Resultado.sucesso("Cliente carregado", cliente); 
+            }
+            return Resultado.erro("Erro ao carregar cliente"); 
+
+        } catch (SQLException e) {
+           e.printStackTrace();
+           return Resultado.erro(e.getMessage()); 
+        }
+    }
+
 }

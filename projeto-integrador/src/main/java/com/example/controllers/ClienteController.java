@@ -78,11 +78,31 @@ public class ClienteController {
         ctx.render("listcliente.html", dados);
     };
     public Handler editarGet = (Context ctx) -> {
-        ctx.render("editacliente.html");
+        Map<String, Object> dados = new HashMap<>();
+        Resultado<List<Cliente>> resultadoLista = repository.listar();
+        if (resultadoLista.foiSucesso()) {
+            dados.put("clientes", resultadoLista.comoSucesso().getObj());
+        }
+
+        ctx.render("editacliente.html", dados);
     };
     public Handler editarPost = (Context ctx) -> {
+
         Map<String, Object> dados = new HashMap<>();
         String swapid = ctx.formParam("id");
+
+        if (swapid == null || swapid.isBlank()) {
+            dados.put("mensagem", "Selecione um cliente antes de salvar.");
+
+            Resultado<List<Cliente>> resultadoLista = repository.listar();
+            if (resultadoLista.foiSucesso()) {
+                dados.put("clientes", resultadoLista.comoSucesso().getObj());
+            }
+
+            ctx.render("editacliente.html", dados);
+            return;
+        }
+
         int id = Integer.parseInt(swapid);
         String cpf = ctx.formParam("cpf");
         String email = ctx.formParam("email");
@@ -90,9 +110,16 @@ public class ClienteController {
         Resultado<Cliente> resultado = repository.editar(cliente);
         if (resultado.foiSucesso()) {
             dados.put("mensagem", resultado.getMsg());
+            dados.put("clienteSelecionado", id);
         } else {
             dados.put("mensagem", resultado.getMsg());
         }
+
+        Resultado<List<Cliente>> resultadoLista = repository.listar();
+        if (resultadoLista.foiSucesso()) {
+            dados.put("clientes", resultadoLista.comoSucesso().getObj());
+        }
+
         ctx.render("editacliente.html", dados);
     };
 

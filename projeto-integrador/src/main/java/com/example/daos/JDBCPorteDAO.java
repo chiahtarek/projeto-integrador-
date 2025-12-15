@@ -120,5 +120,25 @@ public class JDBCPorteDAO implements PorteDAO {
             return Resultado.erro(e.getMessage());
         }
     }
+    @Override
+    public Resultado<Porte> buscarPorteCarro(String placa){
+        String sql = "SELECT * from projeto_veiculo PV inner join projeto_porte PP ";
+        sql += "ON PP.codigo = PV.porte_codigo where PV.placa = ?"; 
+        try (Connection con = fabrica.getConnection();
+             PreparedStatement pstm = con.prepareStatement(sql)) {
+             pstm.setString(1, placa);
+             ResultSet rs = pstm.executeQuery(); 
+             while(rs.next()){
+                int id = rs.getInt("codigo"); 
+                String descricao = rs.getString("descricao"); 
+                Porte porte = new Porte(id, descricao); 
+                return Resultado.sucesso("Porte encontrado", porte); 
+             }
+             return Resultado.erro("Erro ao buscar porte"); 
+        } catch (SQLException e) {
+           e.printStackTrace();
+           return Resultado.erro(e.getMessage());
+        }
+    }
 
 }

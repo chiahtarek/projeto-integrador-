@@ -46,7 +46,25 @@ public class CarroRepository {
     }
 
     public Resultado<List<Carro>> listar() {
-        return carroDAO.listar();
+        Resultado<List<Carro>> result = carroDAO.listar();
+        if (result.foiSucesso()) {
+            List<Carro> carros = result.comoSucesso().getObj();
+            for (Carro c : carros) {
+                Resultado<Cliente> resultadoCliente = clienteDAO.buscarClienteCarro(c.getPlaca());
+                if (resultadoCliente.foiSucesso()) {
+                    c.setCliente(resultadoCliente.comoSucesso().getObj());
+                } else {
+                    return Resultado.erro(resultadoCliente.getMsg());
+                }
+                Resultado<Porte> resultadoPorte = porteDAO.buscarPorteCarro(c.getPlaca());
+                if (resultadoPorte.foiSucesso()) {
+                    c.setPorte(resultadoPorte.comoSucesso().getObj());
+                } else {
+                    return Resultado.erro(resultadoPorte.getMsg());
+                }
+            }
+        }
+        return result;
     }
 
     public Resultado<Carro> editar(Carro carro) {
