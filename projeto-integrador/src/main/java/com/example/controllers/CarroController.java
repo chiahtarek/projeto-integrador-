@@ -60,10 +60,30 @@ public class CarroController {
         ctx.render("listcarro.html", dados);
     };
     public Handler editarGet = (Context ctx) -> {
-        ctx.render("editcarro.html");
+        Map<String, Object> dados = new HashMap<>();
+        Resultado<List<Carro>> carros = repository.listar();
+        if (carros.foiSucesso()) {
+            dados.put("carros", carros.comoSucesso().getObj());
+        }
+
+        ctx.render("editcarro.html", dados);
+
     };
     public Handler editarPost = (Context ctx) -> {
+        Map<String, Object> dados = new HashMap<>();
+
         String placa = ctx.formParam("placa");
+
+        if (placa == null || placa.isBlank()) {
+            dados.put("mensagem", "Selecione uma placa");
+            Resultado<List<Carro>> carros = repository.listar();
+            if (carros.foiSucesso()) {
+                dados.put("carros", carros.comoSucesso().getObj());
+            }
+            ctx.render("editcarro.html", dados);
+            return;
+        }
+
         String modelo = ctx.formParam("modelo");
         String marca = ctx.formParam("marca");
         String cor = ctx.formParam("cor");
@@ -77,11 +97,14 @@ public class CarroController {
         Carro carro = new Carro(placa, modelo, marca, cor, cliente, porte);
 
         Resultado<Carro> resultado = repository.editar(carro);
-        Map<String, Object> dados = new HashMap<>();
         if (resultado.foiSucesso()) {
             dados.put("mensagem", resultado.getMsg());
         } else {
             dados.put("erro", resultado.getMsg());
+        }
+        Resultado<List<Carro>> resultadoLista = repository.listar();
+        if (resultadoLista.foiSucesso()) {
+            dados.put("carros", resultadoLista.comoSucesso().getObj());
         }
         ctx.render("editcarro.html", dados);
     };

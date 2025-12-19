@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,13 +23,20 @@
             width: 420px;
             padding: 30px;
             border-radius: 12px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
             animation: fadeIn 0.5s ease-in-out;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to   { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         h2 {
@@ -109,39 +117,92 @@
         }
     </style>
 </head>
+
 <body>
 
-<div class="card">
-    <h2>Editar Carro</h2>
+    <div class="card">
+        <h2>Editar Carro</h2>
 
-    <#if mensagem?? >
-        <div class="mensagem">${mensagem}</div>
-    </#if>
+        <#if mensagem??>
+            <div class="mensagem">${mensagem}</div>
+        </#if>
+        <label for="carroSelect">Selecione um crro</label>
+        <select id="carroSelect" onchange="preencherCampos()">
+            <option value="">-- Selecione --</option>
 
-    <form method="post">
-        <label for="placa">Digite a placa</label>
-        <input type="text" name="placa"/>
+            <#if carros??>
+                <#list carros as c>
+                    <option value="${c.placa}" data-modelo="${c.modelo!""}" data-marca="${c.marca!""}"
+                        data-cor="${c.cor!""}" data-id-cliente="${c.cliente.id!""}" data-id-porte="${c.porte.codigo!""}">
+                        ${c.placa} - ${c.modelo} - ${c.marca} - ${c.cor}
+                        - Cliente: ${c.cliente.id!""}
+                        - Porte: ${c.porte.codigo!""}
+                        </option>
+                </#list>
+            </#if>
+        </select>
+        <form method="post" action="/editcarro">
+            <input type="hidden" name="placa" id="placa">
 
-        <label for="modelo">Digite o modelo</label>
-        <input type="text" name="modelo"/>
 
-        <label for="marca">Digite a marca</label>
-        <input type="text" name="marca"/>
+            <label for="modelo"> modelo</label>
+            <input type="text" name="modelo" id="modelo" />
 
-        <label for="cor">Digite a cor</label>
-        <input type="text" name="cor"/>
+            <label for="marca"> marca</label>
+            <input type="text" name="marca" id="marca" />
 
-        <label for="id_cliente">Digite o id_cliente</label>
-        <input type="text" name="id_cliente"/>
+            <label for="cor"> cor</label>
+            <input type="text" name="cor" id="cor" />
 
-        <label for="id_porte">Digite o id_porte</label>
-        <input type="text" name="id_porte"/>
+            <label for="id_cliente"> id_cliente</label>
+            <input type="text" name="id_cliente" id="id_cliente" />
 
-        <input type="submit" value="Salvar Alterações"/>
-    </form>
+            <label for="id_porte"> id_porte</label>
+            <input type="text" name="id_porte" id="id_porte" />
 
-    <a href="/" class="back-link">Voltar</a>
-</div>
+            <input type="submit" id="btnSalvar" value="Salvar Alterações" />
+        </form>
 
+        <a href="/" class="back-link">Voltar</a>
+    </div>
+    <script>
+        function validar() {
+            if (!document.getElementById("placa").value) {
+                alert("Selecione um carro antes de salvar");
+                return false;
+
+            }
+            return true;
+        }
+        window.onload = function () {
+            const select = document.getElementById("carroSelect");
+            if (select.value) {
+                preencherCampos();
+            }
+        }
+        function preencherCampos() {
+            const select = document.getElementById("carroSelect");
+            const option = select.options[select.selectedIndex];
+             console.log("DATASET:", option.dataset);
+             console.log("idPorte:", option.dataset.idPorte);
+            if (!option.value) {
+                document.getElementById("placa").value = "";
+                document.getElementById("modelo").value = "";
+                document.getElementById("marca").value = "";
+                document.getElementById("cor").value = "";
+                document.getElementById("id_cliente").value = "";
+                document.getElementById("id_porte").value = "";
+                return;
+            }
+
+            document.getElementById("placa").value = option.value;
+            document.getElementById("modelo").value = option.dataset.modelo;
+            document.getElementById("marca").value = option.dataset.marca;
+            document.getElementById("cor").value = option.dataset.cor;
+            document.getElementById("id_cliente").value = option.dataset.idCliente;
+            document.getElementById("id_porte").value = option.dataset.idPorte;
+        }
+    </script>
 </body>
+
 </html>
