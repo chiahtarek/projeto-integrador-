@@ -113,4 +113,43 @@ public class JDBCCarroDAO implements CarroDAO {
         }
     }
 
+    public Resultado<Carro> buscar(String placa) {
+        String sql = "select * from projeto_veiculo where placa = ?  ";
+        try (Connection con = fabrica.getConnection();
+                PreparedStatement pstm = con.prepareStatement(sql)) {
+
+            pstm.setString(1, placa);
+
+            ResultSet rs = pstm.executeQuery(); 
+            if (rs.next()) {
+                Carro carro = new Carro(placa, rs.getString("modelo"), rs.getString("marca"), rs.getString("cor"), null,
+                        null);
+                return Resultado.sucesso("Carro encontrado", carro);
+            }
+            return Resultado.erro("Carro nao encontrado");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return Resultado.erro(e.getMessage());
+        }
+    }
+    @Override 
+    public Resultado<Carro> buscarCarroTicket(int id){
+        String sql = "select * from projeto_ticket PT inner join projeto_veiculo PV on PT.placa = PV.placa where PT.id = ?";
+        try (Connection con = fabrica.getConnection(); 
+             PreparedStatement pstm = con.prepareStatement(sql)) {
+            pstm.setInt(1, id);
+            ResultSet rs = pstm.executeQuery(); 
+            while(rs.next()){
+                String placa = rs.getString("placa"); 
+                Carro carro = new Carro(placa); 
+                return Resultado.sucesso("Carro encontrado", carro); 
+            }
+            return Resultado.erro("Erro ao buscar carro"); 
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return Resultado.erro(e.getMessage()); 
+        }
+    }
+    
+
 }

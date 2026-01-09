@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastrar Cliente</title>
+    <title>Registrar Pagamento</title>
 
     <style>
         body {
@@ -23,8 +23,8 @@
             width: 420px;
             padding: 30px;
             border-radius: 12px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
-            animation: fadeIn 0.4s ease-in-out;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 0.5s ease-in-out;
         }
 
         @keyframes fadeIn {
@@ -41,10 +41,8 @@
 
         h2 {
             text-align: center;
-            margin-top: 0;
-            margin-bottom: 25px;
             color: #333;
-            font-size: 24px;
+            margin-bottom: 25px;
         }
 
         form {
@@ -58,35 +56,35 @@
             color: #444;
         }
 
-        input[type="text"] {
+        select {
             padding: 10px;
             margin-top: 6px;
             border: 1px solid #bbb;
             border-radius: 6px;
             font-size: 14px;
-            outline: none;
-            transition: 0.2s;
         }
 
-        input[type="text"]:focus {
-            border-color: #007bff;
-            box-shadow: 0 0 6px #007bff80;
+
+        .valor {
+            margin-top: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #28a745;
+            text-align: center;
         }
 
         input[type="submit"] {
             margin-top: 20px;
             padding: 12px;
-            background: #007bff;
-            color: white;
+            background: #ffc107;
             border: none;
             border-radius: 6px;
             font-size: 16px;
             cursor: pointer;
-            transition: 0.25s;
         }
 
         input[type="submit"]:hover {
-            background: #0056b3;
+            background: #e0a800;
         }
 
         .back-link {
@@ -98,7 +96,6 @@
             background: #333;
             padding: 10px;
             border-radius: 6px;
-            transition: 0.2s;
         }
 
         .back-link:hover {
@@ -160,36 +157,62 @@
     </nav>
 
     <div class="card">
-        <h2>Cadastrar Cliente</h2>
+        <h2>Registrar Pagamento</h2>
 
-        <#if mensagem??>
-            <p style="color: green; font-weight: bold; text-align:center;">
-                ${mensagem}
-            </p>
-        </#if>
+        <form method="post" action="/addpag">
 
-        <#if erro??>
-            <p style="color: red; font-weight: bold; text-align:center;">
-                ${erro}
-            </p>
-        </#if>
+            <!-- Seleção de Ticket -->
+            <label for="ticketSelect">Selecione o Ticket</label>
+            <select id="ticketSelect" name="ticketid" onchange="atualizarValor()">
+                <option value="">-- Selecione --</option>
 
+                <#-- Exemplo usando FreeMarker -->
+                    <#if tickets??>
+                        <#list tickets as t>
+                            <option value="${t.id}" data-valor="${t.valor}">
+                                ${t.id} - ${t.carro.placa} - ${t.valor}
+                            </option>
+                        </#list>
+                    </#if>
+            </select>
 
-        <form method="post">
-            <label for="id">Digite o id</label>
-            <input type="text" name="id" />
+            <!-- Valor do Ticket -->
+            <div class="valor" id="valorTicket">
+                Valor: R$ 0,00
+            </div>
 
-            <label for="cpf">Digite o cpf</label>
-            <input type="text" name="cpf" />
+            <!-- Forma de Pagamento -->
+            <label for="formaPagamento">Forma de Pagamento</label>
+            <select id="formaPagamento" name="formaPagamento">
+                <option value="">-- Selecione --</option>
+                <option value="DINHEIRO">Dinheiro</option>
+                <option value="CARTAO">Cartão</option>
+                <option value="PIX">Pix</option>
+            </select>
 
-            <label for="email">Digite o email</label>
-            <input type="text" name="email" />
+            <input type="submit" value="Registrar Pagamento">
 
-            <input type="submit" value="Cadastrar" />
         </form>
 
         <a href="/" class="back-link">Voltar</a>
     </div>
+
+    <script>
+        function atualizarValor() {
+            const select = document.getElementById("ticketSelect");
+            const valorDiv = document.getElementById("valorTicket");
+
+            const option = select.options[select.selectedIndex];
+            let valor = option.getAttribute("data-valor");
+
+            if (valor) {
+                valor = valor.replace(",", ".");
+                valorDiv.innerHTML = "Valor: R$ " + parseFloat(valor).toFixed(2).replace(".", ",");
+            } else {
+                valorDiv.innerHTML = "Valor: R$ 0,00";
+            }
+        }
+    </script>
 
 </body>
 

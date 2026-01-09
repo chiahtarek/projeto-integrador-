@@ -15,4 +15,7 @@ public class VagaRepository {
     public Resultado<List<Vaga>> listarVagasLivres(){
         return vagaDAO.listaVagasLivres(); 
     }
+    public Resultado<Vaga> buscar(int codigo){
+        return vagaDAO.buscar(codigo); 
+    }
 }

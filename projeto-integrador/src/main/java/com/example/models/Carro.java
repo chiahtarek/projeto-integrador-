@@ -16,6 +16,9 @@ public class Carro {
         this.cliente = cliente;
         this.porte = porte;
     }
+    public Carro(String placa){
+        this.placa = placa; 
+    }
 
     public String getPlaca() {
         return placa;

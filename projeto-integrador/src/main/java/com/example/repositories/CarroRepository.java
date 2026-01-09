@@ -23,7 +23,7 @@ public class CarroRepository {
 
     public Resultado<Carro> cadastrar(String placa, String modelo, String marca, String cor, Cliente cliente_id,
             Porte porte_id) {
-        System.out.println("ID do porte recebido: " + porte_id);
+       
         Resultado<Porte> rPorte = porteDAO.buscarPorId(porte_id.getCodigo());
         if (!rPorte.foiSucesso()) {
             return Resultado.erro("erro ao buscar porte");
@@ -31,8 +31,6 @@ public class CarroRepository {
 
         Porte porte = rPorte.comoSucesso().getObj();
 
-        System.out.println("Porte encontrado: "
-                + (rPorte.foiSucesso() ? rPorte.comoSucesso().getObj().getCodigo() : "não encontrado"));
         Resultado<Cliente> rCliente = clienteDAO.buscarPorId(cliente_id.getId());
         if (!rCliente.foiSucesso()) {
             return Resultado.erro("erro ao buscar cliente");
@@ -40,8 +38,6 @@ public class CarroRepository {
         Cliente cliente = rCliente.comoSucesso().getObj();
 
         Carro carro = new Carro(placa, modelo, marca, cor, cliente, porte);
-        System.out.println("Cliente ID: " + cliente.getId());
-        System.out.println("Porte ID: " + porte.getCodigo());
         return carroDAO.cadastrar(carro);
     }
 
@@ -91,5 +87,8 @@ public class CarroRepository {
             }
         }
         return Resultado.erro("erro ao excluir ");
+    }
+    public Resultado<Carro> buscar(String placa){
+        return carroDAO.buscar(placa); 
     }
 }

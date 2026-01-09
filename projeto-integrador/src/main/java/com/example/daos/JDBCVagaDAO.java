@@ -39,5 +39,23 @@ public class JDBCVagaDAO implements VagaDAO {
             return Resultado.erro(e.getMessage());
         }
     }
+    public Resultado<Vaga> buscar(int codigo){
+        String sql = "SELECT * from projeto_vaga where codigo = ?"; 
+        try (Connection con = fabrica.getConnection(); 
+             PreparedStatement pstm = con.prepareStatement(sql)) {
+
+            pstm.setInt(1, codigo);
+
+            ResultSet rs = pstm.executeQuery();
+            if(rs.next()){
+                Vaga vaga = new Vaga(codigo, rs.getString("localizacao"), rs.getBoolean("status")); 
+                return Resultado.sucesso("Vaga encontrada", vaga); 
+            }
+            return Resultado.erro("Erro ao buscar"); 
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return Resultado.erro("Erro ao buscar"); 
+        }
+    }
 
 }

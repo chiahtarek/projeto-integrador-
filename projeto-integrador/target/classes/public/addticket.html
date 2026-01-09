@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastrar Cliente</title>
+    <title>Cadastrar Ticket</title>
 
     <style>
         body {
@@ -23,8 +23,8 @@
             width: 420px;
             padding: 30px;
             border-radius: 12px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
-            animation: fadeIn 0.4s ease-in-out;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 0.5s ease-in-out;
         }
 
         @keyframes fadeIn {
@@ -40,10 +40,10 @@
         }
 
         h2 {
-            text-align: center;
             margin-top: 0;
-            margin-bottom: 25px;
+            text-align: center;
             color: #333;
+            margin-bottom: 25px;
             font-size: 24px;
         }
 
@@ -58,7 +58,7 @@
             color: #444;
         }
 
-        input[type="text"] {
+        select {
             padding: 10px;
             margin-top: 6px;
             border: 1px solid #bbb;
@@ -68,7 +68,7 @@
             transition: 0.2s;
         }
 
-        input[type="text"]:focus {
+        select:focus {
             border-color: #007bff;
             box-shadow: 0 0 6px #007bff80;
         }
@@ -76,8 +76,8 @@
         input[type="submit"] {
             margin-top: 20px;
             padding: 12px;
-            background: #007bff;
-            color: white;
+            background: #ffc107;
+            color: black;
             border: none;
             border-radius: 6px;
             font-size: 16px;
@@ -86,7 +86,7 @@
         }
 
         input[type="submit"]:hover {
-            background: #0056b3;
+            background: #e0a800;
         }
 
         .back-link {
@@ -104,8 +104,7 @@
         .back-link:hover {
             background: #000;
         }
-
-        .navbar {
+         .navbar {
             position: fixed;
             top: 0;
             left: 0;
@@ -150,7 +149,7 @@
 </head>
 
 <body>
-    <nav class="navbar">
+     <nav class="navbar">
         <div class="navbar-title">ESTACIONAI</div>
 
         <div class="navbar-links">
@@ -160,32 +159,35 @@
     </nav>
 
     <div class="card">
-        <h2>Cadastrar Cliente</h2>
-
+        <h2>Cadastrar Ticket</h2>
         <#if mensagem??>
-            <p style="color: green; font-weight: bold; text-align:center;">
-                ${mensagem}
-            </p>
+             <div class="mensagem">
+                  ${mensagem}
+             </div>
         </#if>
 
-        <#if erro??>
-            <p style="color: red; font-weight: bold; text-align:center;">
-                ${erro}
-            </p>
-        </#if>
+        <form method="post" action="/addticket">
+            <label for="carroSelect">Selecione um Carro</label>
+            <select id="carroSelect" name="placacarro">
+                <option value="">-- Selecione --</option>
+                <#if carros??>
+                    <#list carros as c>
+                        <option value="${c.placa}">${c.modelo} - ${c.marca} - ${c.placa}</option>
+                    </#list>    
+                </#if>
+            </select>
 
+            <label for="vagaSelect">Selecione uma Vaga</label>
+            <select id="vagaSelect" name="vaga">
+                <option value="">-- Selecione --</option>
+                <#if vagas??>
+                    <#list vagas as v>
+                        <option value="${v.id}" >${v.id} - ${v.corredor} </option>
+                    </#list>
+                </#if>
+            </select>
 
-        <form method="post">
-            <label for="id">Digite o id</label>
-            <input type="text" name="id" />
-
-            <label for="cpf">Digite o cpf</label>
-            <input type="text" name="cpf" />
-
-            <label for="email">Digite o email</label>
-            <input type="text" name="email" />
-
-            <input type="submit" value="Cadastrar" />
+            <input type="submit" value="Registrar Ticket" />
         </form>
 
         <a href="/" class="back-link">Voltar</a>

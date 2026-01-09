@@ -9,6 +9,18 @@ public class Ticket {
     private boolean status;
     private Vaga vaga;
     private Carro carro;
+    private Double valor;
+
+    public Ticket(int id, LocalDateTime data_hora_entrada, LocalDateTime data_hora_saida, boolean status, Vaga vaga,
+            Carro carro, Double valor) {
+        this.id = id;
+        this.data_hora_entrada = data_hora_entrada;
+        this.data_hora_saida = data_hora_saida;
+        this.status = status;
+        this.vaga = vaga;
+        this.carro = carro;
+        this.valor = valor;
+    }
 
     public Ticket(int id, LocalDateTime data_hora_entrada, LocalDateTime data_hora_saida, boolean status, Vaga vaga,
             Carro carro) {
@@ -18,6 +30,27 @@ public class Ticket {
         this.status = status;
         this.vaga = vaga;
         this.carro = carro;
+    }
+
+    public Ticket(LocalDateTime data_hora_entrada, LocalDateTime data_hora_saida, boolean status, Vaga vaga,
+            Carro carro) {
+        this.data_hora_entrada = data_hora_entrada;
+        this.data_hora_saida = data_hora_saida;
+        this.status = status;
+        this.vaga = vaga;
+        this.carro = carro;
+    }
+
+    public Ticket(int id, LocalDateTime data_hora_entrada,LocalDateTime data_hora_saida, Double valor) {
+        this.id = id;
+        this.data_hora_entrada = data_hora_entrada;
+        this.data_hora_saida = data_hora_saida; 
+        this.valor = valor; 
+    }
+    public Ticket(int id, LocalDateTime data_hora_entrada, Double valor) {
+        this.id = id;
+        this.data_hora_entrada = data_hora_entrada; 
+        this.valor = valor; 
     }
 
     public int getId() {
@@ -67,5 +100,14 @@ public class Ticket {
     public void setCarro(Carro carro) {
         this.carro = carro;
     }
+
+    public Double getValor() {
+        return valor;
+    }
+
+    public void setValor(Double valor) {
+        this.valor = valor;
+    }
+    
 
 }

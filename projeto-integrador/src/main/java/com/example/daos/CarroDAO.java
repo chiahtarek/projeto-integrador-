@@ -10,4 +10,6 @@ public interface CarroDAO {
     Resultado<List<Carro>> listar(); 
     Resultado<Carro> editar(Carro carro); 
     Resultado<Carro> excluir(Carro carro); 
+    Resultado<Carro> buscar(String placa); 
+    Resultado<Carro> buscarCarroTicket(int id); 
 }
