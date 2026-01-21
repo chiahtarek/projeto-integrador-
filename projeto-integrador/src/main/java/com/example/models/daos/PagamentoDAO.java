@@ -1,4 +1,4 @@
-package com.example.daos;
+package com.example.models.daos;
 
 import com.example.models.Pagamento;
 import com.example.utils.Resultado;

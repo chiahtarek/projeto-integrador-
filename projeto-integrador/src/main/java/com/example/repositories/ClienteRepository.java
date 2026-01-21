@@ -2,10 +2,10 @@ package com.example.repositories;
 
 import java.util.List;
 
-import com.example.daos.ClienteDAO;
-import com.example.daos.PessoaDAO;
 import com.example.models.Cliente;
 import com.example.models.Pessoa;
+import com.example.models.daos.ClienteDAO;
+import com.example.models.daos.PessoaDAO;
 import com.example.utils.Resultado;
 
 public class ClienteRepository {

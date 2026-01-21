@@ -1,4 +1,4 @@
-package com.example.daos;
+package com.example.models.daos;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

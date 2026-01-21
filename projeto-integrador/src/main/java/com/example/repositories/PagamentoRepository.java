@@ -1,8 +1,8 @@
 package com.example.repositories;
 
-import com.example.daos.PagamentoDAO;
-import com.example.daos.TicketDAO;
 import com.example.models.Pagamento;
+import com.example.models.daos.PagamentoDAO;
+import com.example.models.daos.TicketDAO;
 import com.example.utils.Resultado;
 
 public class PagamentoRepository {

@@ -1,7 +1,7 @@
 package com.example.repositories;
 
-import com.example.daos.PessoaDAO;
 import com.example.models.Pessoa;
+import com.example.models.daos.PessoaDAO;
 import com.example.utils.Resultado;
 
 public class PessoaRepository {

@@ -2,8 +2,8 @@ package com.example.repositories;
 
 import java.util.List;
 
-import com.example.daos.VagaDAO;
 import com.example.models.Vaga;
+import com.example.models.daos.VagaDAO;
 import com.example.utils.Resultado;
 
 public class VagaRepository {

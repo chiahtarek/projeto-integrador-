@@ -2,12 +2,12 @@ package com.example.repositories;
 
 import java.util.List;
 
-import com.example.daos.CarroDAO;
-import com.example.daos.ClienteDAO;
-import com.example.daos.PorteDAO;
 import com.example.models.Carro;
 import com.example.models.Cliente;
 import com.example.models.Porte;
+import com.example.models.daos.CarroDAO;
+import com.example.models.daos.ClienteDAO;
+import com.example.models.daos.PorteDAO;
 import com.example.utils.Resultado;
 
 public class CarroRepository {

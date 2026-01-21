@@ -2,8 +2,8 @@ package com.example.repositories;
 
 import java.util.List;
 
-import com.example.daos.PorteDAO;
 import com.example.models.Porte;
+import com.example.models.daos.PorteDAO;
 import com.example.utils.Resultado;
 
 public class PorteRepository {
