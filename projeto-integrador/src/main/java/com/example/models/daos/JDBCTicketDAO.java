@@ -37,10 +37,8 @@ public class JDBCTicketDAO implements TicketDAO {
             pstm.setString(5, ticket.getCarro().getPlaca());
             int rows = pstm.executeUpdate();
             if (rows == 1) {
-                int id = DBUtils.getLastId(pstm);
-                ticket.setId(id);
                 return Resultado.sucesso("Ticket Registrado", ticket);
-            }
+            }   
             return Resultado.erro("Erro ao registrar ticket");
         } catch (SQLException e) {
             e.printStackTrace();
